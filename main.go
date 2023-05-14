@@ -14,11 +14,11 @@ import (
 const URL = "https://qiita.com/api/v2/authenticated_user/items"
 
 type Article struct {
-	CreatedAt string `json:"created_at"`
-	UpdatedAt string `json:"updated_at"`
 	ID        string `json:"id"`
 	Title     string `json:"title"`
 	Body      string `json:"body"`
+	CreatedAt string `json:"created_at"`
+	UpdatedAt string `json:"updated_at"`
 }
 
 func (a *Article) FormatDates() {
