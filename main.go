@@ -19,6 +19,10 @@ func main() {
 	method := os.Args[1]
 	switch method {
 	case "GET_ALL":
+		if argsLen != 2 {
+			fmt.Println(errMessage)
+			return
+		}
 		article.GetAll()
 	case "GET":
 		if argsLen != 3 {
