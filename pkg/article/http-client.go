@@ -27,6 +27,7 @@ func request(method, url string, body io.Reader) ([]byte, error) {
 		return nil, err
 	}
 
+	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+token)
 
 	client := &http.Client{}

@@ -31,11 +31,12 @@ func main() {
 		}
 		article.Get(os.Args[2])
 	case "POST":
-		if argsLen != 3 {
-			fmt.Println(errMessage)
-			return
-		}
-		// TODO: 投稿処理
+		// FIXME: 記事の指定方法を修正したら引数を追加する
+		// if argsLen != 3 {
+		// 	fmt.Println(errMessage)
+		// 	return
+		// }
+		article.Post()
 	case "PATCH":
 		if argsLen != 3 {
 			fmt.Println(errMessage)
