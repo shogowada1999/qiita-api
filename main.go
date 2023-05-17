@@ -47,7 +47,7 @@ func main() {
 			fmt.Println(errMessage)
 			return
 		}
-		// TODO: 削除処理
+		article.Delete(os.Args[2])
 	case "SYNC_ALL":
 		if argsLen != 2 {
 			fmt.Println(errMessage)
