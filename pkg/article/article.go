@@ -5,10 +5,17 @@ import (
 	"time"
 )
 
+type Tag struct {
+	Name     string   `json:"name"`
+	Versions []string `json:"versions"`
+}
 type Article struct {
 	ID        string `json:"id"`
 	Title     string `json:"title"`
 	Body      string `json:"body"`
+	Tags      []Tag  `json:"tags"`
+	Private   bool   `json:"private"`
+	Tweet     bool   `json:"tweet"`
 	CreatedAt string `json:"created_at"`
 	UpdatedAt string `json:"updated_at"`
 }
@@ -48,8 +55,10 @@ func formatDateString(input string) (string, error) {
 
 func printArticle(a Article) {
 	fmt.Printf("id        : %s\n", a.ID)
+	fmt.Printf("private   : %t\n", a.Private)
 	fmt.Printf("created_at: %s\n", a.CreatedAt)
 	fmt.Printf("updated_at: %s\n", a.UpdatedAt)
+	fmt.Printf("tags      : %s\n", a.Tags)
 	fmt.Printf("title     : %s\n", a.Title)
-	fmt.Printf("body      : %s\n", a.Body)
+	fmt.Printf("body      : %s\n\n", a.Body)
 }
