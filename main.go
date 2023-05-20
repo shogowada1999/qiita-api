@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"qiita-api/pkg/article"
 	"qiita-api/pkg/item"
 )
 
@@ -61,6 +62,9 @@ func main() {
 			return
 		}
 		// TODO: 同期処理
+	case "TEST":
+		// FIXME: プロジェクト完了後削除
+		article.ConvertArticle("test.md")
 	default:
 		fmt.Println("Error: An invalid command was entered.")
 		return

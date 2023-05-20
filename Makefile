@@ -15,3 +15,7 @@ post:
 delete:
 	@go run main.go DELETE ${ID}
 
+# FIXME: プロジェクト完了後削除
+.PHONY: test
+test:
+	@go run main.go TEST
