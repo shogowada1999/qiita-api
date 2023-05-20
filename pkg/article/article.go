@@ -2,7 +2,10 @@ package article
 
 import (
 	"fmt"
+	"os"
 	"time"
+
+	"github.com/joho/godotenv"
 )
 
 type Tag struct {
@@ -53,12 +56,22 @@ func formatDateString(input string) (string, error) {
 	return t.Format("2006-01-02 15:04:05"), nil
 }
 
-func printArticle(a Article) {
+func printArticle(a Article) error {
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Error: Failed to read environment variables.")
+		return err
+	}
+	userID := os.Getenv("QIITA_USER_ID")
+
 	fmt.Printf("id        : %s\n", a.ID)
+	fmt.Printf("url       : https://qiita.com/%s/items/%s\n", userID, a.ID)
 	fmt.Printf("private   : %t\n", a.Private)
 	fmt.Printf("created_at: %s\n", a.CreatedAt)
 	fmt.Printf("updated_at: %s\n", a.UpdatedAt)
 	fmt.Printf("tags      : %s\n", a.Tags)
 	fmt.Printf("title     : %s\n", a.Title)
-	fmt.Printf("body      : %s\n\n", a.Body)
+	fmt.Printf("body      : \n%s\n\n", a.Body)
+
+	return nil
 }
