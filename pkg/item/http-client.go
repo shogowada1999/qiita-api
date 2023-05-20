@@ -1,4 +1,4 @@
-package article
+package item
 
 import (
 	"fmt"

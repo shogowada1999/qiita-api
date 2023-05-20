@@ -1,4 +1,4 @@
-package article
+package item
 
 import (
 	"encoding/json"
@@ -13,7 +13,7 @@ func Get(itemID string) {
 		return
 	}
 
-	var article Article
+	var article Item
 
 	json.Unmarshal([]byte(bodyBytes), &article)
 	if err != nil {
@@ -23,5 +23,5 @@ func Get(itemID string) {
 
 	article.Format()
 
-	printArticle(article)
+	printItem(article)
 }

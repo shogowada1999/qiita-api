@@ -1,4 +1,4 @@
-package article
+package item
 
 import (
 	"encoding/json"
@@ -13,7 +13,7 @@ func GetAll() {
 		return
 	}
 
-	var articles []Article
+	var articles []Item
 
 	json.Unmarshal([]byte(bodyBytes), &articles)
 	if err != nil {
@@ -27,6 +27,6 @@ func GetAll() {
 	}
 
 	for _, article := range articles {
-		printArticle(article)
+		printItem(article)
 	}
 }

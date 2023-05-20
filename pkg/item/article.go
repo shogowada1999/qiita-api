@@ -1,4 +1,4 @@
-package article
+package item
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ type Tag struct {
 	Name     string   `json:"name"`
 	Versions []string `json:"versions"`
 }
-type Article struct {
+type Item struct {
 	ID        string `json:"id"`
 	Title     string `json:"title"`
 	Body      string `json:"body"`
@@ -23,7 +23,7 @@ type Article struct {
 	UpdatedAt string `json:"updated_at"`
 }
 
-func (a *Article) FormatDates() {
+func (a *Item) FormatDates() {
 	var err error
 	a.CreatedAt, err = formatDateString(a.CreatedAt)
 	if err != nil {
@@ -36,13 +36,13 @@ func (a *Article) FormatDates() {
 	}
 }
 
-func (a *Article) TruncateTitle() {
+func (a *Item) TruncateTitle() {
 	if len(a.Title) > 50 {
 		a.Title = a.Title[:50]
 	}
 }
 
-func (a *Article) Format() {
+func (a *Item) Format() {
 	a.FormatDates()
 	a.TruncateTitle()
 }
@@ -56,7 +56,7 @@ func formatDateString(input string) (string, error) {
 	return t.Format("2006-01-02 15:04:05"), nil
 }
 
-func printArticle(a Article) error {
+func printItem(a Item) error {
 	err := godotenv.Load()
 	if err != nil {
 		fmt.Println("Error: Failed to read environment variables.")
