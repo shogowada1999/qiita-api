@@ -1,3 +1,7 @@
+.PHONY: new
+new:
+	@go run main.go NEW
+
 .PHONY: get-all
 get-all:
 	@go run main.go GET_ALL

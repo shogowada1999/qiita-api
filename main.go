@@ -18,6 +18,12 @@ func main() {
 
 	method := os.Args[1]
 	switch method {
+	case "NEW":
+		if argsLen != 2 {
+			fmt.Println(errMessage)
+			return
+		}
+		item.GenerateArticleFile()
 	case "GET_ALL":
 		if argsLen != 2 {
 			fmt.Println(errMessage)

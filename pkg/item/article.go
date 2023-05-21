@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"strings"
+	"time"
 )
 
 func extractParams(paramsText, target string) string {
@@ -99,4 +100,25 @@ func ConvertArticle(filename string) (Item, error) {
 
 func Test() {
 	//
+}
+
+func GenerateArticleFile() error {
+	now := time.Now()
+	timeString := now.Format("2006-01-02-15-04-05")
+	filename := fmt.Sprintf("%s.md", timeString)
+	filepath := "articles/" + filename
+	data, err := ioutil.ReadFile("assets/template.md")
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	err = ioutil.WriteFile(filepath, data, 0644)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	fmt.Println("New article file is generated.")
+	return nil
 }
