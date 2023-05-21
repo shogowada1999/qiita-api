@@ -1,3 +1,7 @@
+.PHONY: list
+list:
+	@go run main.go LIST
+
 .PHONY: new
 new:
 	@go run main.go NEW

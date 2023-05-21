@@ -18,6 +18,12 @@ func main() {
 
 	method := os.Args[1]
 	switch method {
+	case "LIST":
+		if argsLen != 2 {
+			fmt.Println(errMessage)
+			return
+		}
+		item.ShowArticleFiles()
 	case "NEW":
 		if argsLen != 2 {
 			fmt.Println(errMessage)

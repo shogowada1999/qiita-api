@@ -98,10 +98,7 @@ func ConvertArticle(filename string) (Item, error) {
 	return item, nil
 }
 
-func Test() {
-	//
-}
-
+// TODO: オプションでサブディレクトリを受け取って記事を整理できるようにするのもあり
 func GenerateArticleFile() error {
 	now := time.Now()
 	timeString := now.Format("2006-01-02-15-04-05")
@@ -120,5 +117,35 @@ func GenerateArticleFile() error {
 	}
 
 	fmt.Println("New article file is generated.")
+	return nil
+}
+
+func ShowArticleFiles() error {
+	dirname := "articles/"
+
+	files, err := ioutil.ReadDir(dirname)
+	if err != nil {
+		fmt.Println("Error reading directory:", err)
+		return nil
+	}
+
+	fmt.Println("-----")
+
+	for _, file := range files {
+		if !file.IsDir() && strings.HasSuffix(file.Name(), ".md") {
+			fmt.Println("File:", file.Name())
+
+			data, err := ioutil.ReadFile(dirname + file.Name())
+			if err != nil {
+				fmt.Println("Error reading file:", err)
+				continue
+			}
+			content := string(data)
+			params, _ := divideParamsAndBody(content)
+
+			fmt.Println(params)
+			fmt.Println("-----")
+		}
+	}
 	return nil
 }
