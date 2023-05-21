@@ -13,20 +13,20 @@ func GetAll() {
 		return
 	}
 
-	var articles []Item
+	var items []Item
 
-	json.Unmarshal([]byte(bodyBytes), &articles)
+	err = json.Unmarshal([]byte(bodyBytes), &items)
 	if err != nil {
 		fmt.Printf("Error: %s", err)
 		return
 	}
 
-	for i := range articles {
-		articles[i].FormatDates()
-		articles[i].TruncateTitle()
+	for i := range items {
+		items[i].FormatDates()
+		items[i].TruncateTitle()
 	}
 
-	for _, article := range articles {
-		printItem(article)
+	for _, item := range items {
+		printItem(item)
 	}
 }

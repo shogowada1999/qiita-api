@@ -13,15 +13,15 @@ func Get(itemID string) {
 		return
 	}
 
-	var article Item
+	var item Item
 
-	json.Unmarshal([]byte(bodyBytes), &article)
+	json.Unmarshal([]byte(bodyBytes), &item)
 	if err != nil {
 		fmt.Printf("Error: %s", err)
 		return
 	}
 
-	article.Format()
+	item.Format()
 
-	printItem(article)
+	printItem(item)
 }
