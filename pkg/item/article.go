@@ -3,7 +3,7 @@ package item
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"strings"
 	"time"
 )
@@ -83,7 +83,7 @@ func generateItem(content string) (Item, error) {
 func ConvertArticle(filename string) (Item, error) {
 	var item Item
 	filePath := "articles/" + filename
-	data, err := ioutil.ReadFile(filePath)
+	data, err := os.ReadFile(filePath)
 	if err != nil {
 		fmt.Println(err)
 		return item, err
@@ -98,19 +98,36 @@ func ConvertArticle(filename string) (Item, error) {
 	return item, nil
 }
 
-// TODO: オプションでサブディレクトリを受け取って記事を整理できるようにするのもあり
-func GenerateArticleFile() error {
+func GenerateArticleFile(subDir string) error {
+	if !strings.HasPrefix(subDir, "/") {
+		subDir = "/" + subDir
+	}
+	if !strings.HasSuffix(subDir, "/") {
+		subDir = subDir + "/"
+	}
+
+	dirPath := "articles" + subDir
+	if _, err := os.Stat(dirPath); os.IsNotExist(err) {
+		err := os.MkdirAll(dirPath, 0755)
+		if err != nil {
+			fmt.Println(err)
+			return err
+		}
+	}
+
 	now := time.Now()
 	timeString := now.Format("2006-01-02-15-04-05")
-	filename := fmt.Sprintf("%s.md", timeString)
-	filepath := "articles/" + filename
-	data, err := ioutil.ReadFile("assets/template.md")
+	fileName := fmt.Sprintf("%s.md", timeString)
+	filePath := dirPath + fileName
+	fmt.Println(filePath)
+
+	data, err := os.ReadFile("assets/template.md")
 	if err != nil {
 		fmt.Println(err)
 		return err
 	}
 
-	err = ioutil.WriteFile(filepath, data, 0644)
+	err = os.WriteFile(filePath, data, 0644)
 	if err != nil {
 		fmt.Println(err)
 		return err
@@ -123,7 +140,7 @@ func GenerateArticleFile() error {
 func ShowArticleFiles() error {
 	dirname := "articles/"
 
-	files, err := ioutil.ReadDir(dirname)
+	files, err := os.ReadDir(dirname)
 	if err != nil {
 		fmt.Println("Error reading directory:", err)
 		return nil
@@ -135,7 +152,7 @@ func ShowArticleFiles() error {
 		if !file.IsDir() && strings.HasSuffix(file.Name(), ".md") {
 			fmt.Println("File:", file.Name())
 
-			data, err := ioutil.ReadFile(dirname + file.Name())
+			data, err := os.ReadFile(dirname + file.Name())
 			if err != nil {
 				fmt.Println("Error reading file:", err)
 				continue

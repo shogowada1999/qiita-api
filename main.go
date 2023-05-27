@@ -25,11 +25,11 @@ func main() {
 		}
 		item.ShowArticleFiles()
 	case "NEW":
-		if argsLen != 2 {
+		if argsLen != 3 {
 			fmt.Println(errMessage)
 			return
 		}
-		item.GenerateArticleFile()
+		item.GenerateArticleFile(os.Args[2])
 	case "GET_ALL":
 		if argsLen != 2 {
 			fmt.Println(errMessage)
